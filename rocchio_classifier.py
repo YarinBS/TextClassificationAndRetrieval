@@ -31,7 +31,11 @@ class RocchioClassifier:
             print(vec2)
             exit(0)
 
-        return sum([(vec1[i] - vec2[i])**2 for i in range(len(vec1))])**0.5
+        return sum([(vec1[i] - vec2[i]) ** 2 for i in range(len(vec1))]) ** 0.5
+
+
+    def cosine_similarity():
+        pass
 
     def predict(self, vector):
         winner_class = -1
