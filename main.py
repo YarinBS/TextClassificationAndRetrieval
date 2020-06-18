@@ -34,3 +34,8 @@ if __name__ == '__main__':
     test_set, _ = data.build_set("tfidf", test_file_name)
     classifier = rocchio_classifier.RocchioClassifier(train_set)
     print("tfidf:", '{:.3f}'.format(calc_accuracy(test_set, classifier)))
+    # tf-idf-cosine
+    train_set, _ = data.build_set("tfidf", train_file_name)
+    test_set, _ = data.build_set("tfidf", test_file_name)
+    classifier = rocchio_classifier.RocchioClassifier(train_set, cosine=True)
+    print("tfidf with cosine similarity:", '{:.3f}'.format(calc_accuracy(test_set, classifier)))
