@@ -7,6 +7,7 @@ class RocchioClassifier:
         self.training_set = train_set
         self.class_centroids = {}
         self.training()
+        self.cosine = False
 
     def training(self):
         class_size = {}
@@ -33,9 +34,16 @@ class RocchioClassifier:
 
         return sum([(vec1[i] - vec2[i]) ** 2 for i in range(len(vec1))]) ** 0.5
 
+    @staticmethod
+    def cosine_similarity(vec1, vec2):
+        dot_product=0
+        if len(vec1) != len(vec2):
+            print('Error. Vectors of different size')
+        for i in range(len(vec1)):
+            dot_product += vec1[i]*vec2[i]
 
-    def cosine_similarity():
-        pass
+
+
 
     def predict(self, vector):
         winner_class = -1

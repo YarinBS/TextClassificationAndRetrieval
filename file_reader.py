@@ -6,6 +6,7 @@ class FileReader:
     def __init__(self, input_file):
         self.file = input_file
         self.words = {}
+        self.line_count = 0
         self.df = {}
         self.stop_words = []
         self.create_stop_words_list()
@@ -36,6 +37,7 @@ class FileReader:
         index = 0
         with open(self.file, 'r') as reader:  # open the file "file"
             for line in reader:  # for each line in file
+                self.line_count += 1
                 seen_in_this_line = []
                 for word in line.split("\t")[0].split():  # for each word in the line
                     word = self.pre_process_word(word)
@@ -85,15 +87,12 @@ class FileReader:
                 doc_class = line.split("\t")[1].rstrip()
                 vec.append(doc_class)
                 for j in range(len(vec)):
-                    if int(vec[j]) !=0:
-                        vec[j] = float((1+math.log10(float(vec[j]))))
+                    if int(vec[j]) != 0:
+                        vec[j] = float((1 + math.log10(float(vec[j]))))
                 doc_set['doc' + str(index)] = vec
                 reg_representation['doc' + str(index)] = line.split("\t")[0]
                 index += 1
         return doc_set, reg_representation
-
-
-
 
     def build_set_tfidf(self, file_to_vector):
         doc_set = {}
@@ -109,9 +108,9 @@ class FileReader:
                     vec[self.words[word]] += 1
                 doc_class = line.split("\t")[1].rstrip()
                 vec.append(doc_class)
-                for j in range(len(vec)):
-                    if int(vec[j]) != 0:
-                        vec[j] = float((1 + math.log10(float(vec[j]))))
+                for key, value in self.inv_words.items():
+                    if vec[key] != 0:
+                        vec[key] = vec[key] * (math.log10(self.line_count / self.df[value]))
                 doc_set['doc' + str(index)] = vec
                 reg_representation['doc' + str(index)] = line.split("\t")[0]
                 index += 1
