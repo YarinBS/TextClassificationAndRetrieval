@@ -1,0 +1,5 @@
+Accuracy results:
+Boolean: 0.697
+tf: 0.690
+tfidf: 0.754
+tfidf with cosine similarity: 0.739
