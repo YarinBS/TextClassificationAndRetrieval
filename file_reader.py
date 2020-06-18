@@ -82,16 +82,37 @@ class FileReader:
                     if word == '':
                         continue
                     vec[self.words[word]] += 1
-                for word_count in vec:
-                    if word_count > 0:
-                        word_count = 1 + math.log(word_count, 10)
                 doc_class = line.split("\t")[1].rstrip()
                 vec.append(doc_class)
+                for j in range(len(vec)):
+                    if int(vec[j]) !=0:
+                        vec[j] = float((1+math.log10(float(vec[j]))))
                 doc_set['doc' + str(index)] = vec
                 reg_representation['doc' + str(index)] = line.split("\t")[0]
                 index += 1
         return doc_set, reg_representation
 
+
+
+
     def build_set_tfidf(self, file_to_vector):
-        # TODO: replace with your cod
-        return self.build_set_boolean(file_to_vector)
+        doc_set = {}
+        reg_representation = {}
+        index = 0
+        with open(file_to_vector, 'r') as reader:
+            for line in reader:
+                vec = len(self.words) * [0, ]
+                for word in line.split("\t")[0].split():
+                    word = self.pre_process_word(word)
+                    if word == '':
+                        continue
+                    vec[self.words[word]] += 1
+                doc_class = line.split("\t")[1].rstrip()
+                vec.append(doc_class)
+                for j in range(len(vec)):
+                    if int(vec[j]) != 0:
+                        vec[j] = float((1 + math.log10(float(vec[j]))))
+                doc_set['doc' + str(index)] = vec
+                reg_representation['doc' + str(index)] = line.split("\t")[0]
+                index += 1
+        return doc_set, reg_representation

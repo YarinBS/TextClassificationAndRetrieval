@@ -20,12 +20,17 @@ if __name__ == '__main__':
     test_file_name = "./dataset/amazon_cells_labelled_test.txt"
     data = file_reader.FileReader(file_name)
     # boolean
-    #train_set, _ = data.build_set("boolean", train_file_name)
-    #test_set, _ = data.build_set("boolean", test_file_name)
-    #classifier = rocchio_classifier.RocchioClassifier(train_set)
-    #print("Boolean:", '{:.3f}'.format(calc_accuracy(test_set, classifier)))
+    train_set, _ = data.build_set("boolean", train_file_name)
+    test_set, _ = data.build_set("boolean", test_file_name)
+    classifier = rocchio_classifier.RocchioClassifier(train_set)
+    print("Boolean:", '{:.3f}'.format(calc_accuracy(test_set, classifier)))
     # tf
     train_set, _ = data.build_set("tf", train_file_name)
     test_set, _ = data.build_set("tf", test_file_name)
     classifier = rocchio_classifier.RocchioClassifier(train_set)
-    print("TF:", '{:.3f}'.format(calc_accuracy(test_set, classifier)))
+    print("tf:", '{:.3f}'.format(calc_accuracy(test_set, classifier)))
+    # tf-idf
+    train_set, _ = data.build_set("tfidf", train_file_name)
+    test_set, _ = data.build_set("tfidf", test_file_name)
+    classifier = rocchio_classifier.RocchioClassifier(train_set)
+    print("tfidf:", '{:.3f}'.format(calc_accuracy(test_set, classifier)))
