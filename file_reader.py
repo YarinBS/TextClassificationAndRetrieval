@@ -93,5 +93,5 @@ class FileReader:
         return doc_set, reg_representation
 
     def build_set_tfidf(self, file_to_vector):
-        # TODO: replace with your code
+        # TODO: replace with your cod
         return self.build_set_boolean(file_to_vector)
